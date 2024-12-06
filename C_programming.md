@@ -1,6 +1,5 @@
 #56. Accept book details of ‘n’ books viz, book title, author, publisher and cost. Assign an accession numbers to each book in increasing order. (Use dynamic memory allocation). Write a menu driven program for the following options. i. Books of a specific author ii. Books by a specific publisher iii. All books having cost >= _____ . iv. Information about a particular book (accept the title) v. All books. 
 
-
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
@@ -182,3 +181,188 @@
                books[i].accession_number, books[i].title, books[i].author, books[i].publisher, books[i].cost);
     }
     }
+
+#55. Create a structure employee (id, name, salary). Accept details of n 
+employees and write a menu driven program to perform the following 
+operations. Write separate functions for the 
+different options. 
+i) Search by name 
+ii) Search by id 
+iii) Display all 
+iv) Display all employees having salary > _____ 
+v) Display employee having maximum salary
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+
+    // Structure to store employee details
+        typedef struct {
+    int id;
+    char name[100];
+    float salary;
+                } Employee;
+
+    // Function prototypes
+    void searchByName(Employee *employees, int n, const char *name);
+    void searchById(Employee *employees, int n, int id);
+    void displayAllEmployees(Employee *employees, int n);
+    void displayEmployeesBySalary(Employee *employees, int n, float min_salary);
+    void displayEmployeeWithMaxSalary(Employee *employees, int n);
+
+    int main() {
+    int n, choice, id;
+    char search_query[100];
+    float min_salary;
+
+    printf("Enter the number of employees: ");
+    scanf("%d", &n);
+    getchar(); // Clear the newline character
+
+    // Dynamic memory allocation for employees
+    Employee *employees = (Employee *)malloc(n * sizeof(Employee));
+    if (employees == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    // Input employee details
+    for (int i = 0; i < n; i++) {
+        printf("\nEnter details for employee %d:\n", i + 1);
+        printf("ID: ");
+        scanf("%d", &employees[i].id);
+        getchar();
+
+        printf("Name: ");
+        fgets(employees[i].name, sizeof(employees[i].name), stdin);
+        employees[i].name[strcspn(employees[i].name, "\n")] = 0;
+
+        printf("Salary: ");
+        scanf("%f", &employees[i].salary);
+        getchar();
+    }
+
+    // Menu-driven program
+    do {
+        printf("\nMenu:\n");
+        printf("1. Search by name\n");
+        printf("2. Search by ID\n");
+        printf("3. Display all employees\n");
+        printf("4. Display all employees having salary > given value\n");
+        printf("5. Display employee with maximum salary\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        getchar(); // Clear newline character
+
+        switch (choice) {
+            case 1:
+                printf("Enter name: ");
+                fgets(search_query, sizeof(search_query), stdin);
+                search_query[strcspn(search_query, "\n")] = 0;
+                searchByName(employees, n, search_query);
+                break;
+            case 2:
+                printf("Enter ID: ");
+                scanf("%d", &id);
+                getchar();
+                searchById(employees, n, id);
+                break;
+            case 3:
+                displayAllEmployees(employees, n);
+                break;
+            case 4:
+                printf("Enter minimum salary: ");
+                scanf("%f", &min_salary);
+                getchar();
+                displayEmployeesBySalary(employees, n, min_salary);
+                break;
+            case 5:
+                displayEmployeeWithMaxSalary(employees, n);
+                break;
+            case 6:
+                printf("Exiting program.\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 6);
+
+    // Free allocated memory
+    free(employees);
+    return 0;
+    }
+
+    void searchByName(Employee *employees, int n, const char *name) {
+    int found = 0;
+    printf("\nEmployees with name '%s':\n", name);
+    for (int i = 0; i < n; i++) {
+        if (strcmp(employees[i].name, name) == 0) {
+            printf("ID: %d, Name: %s, Salary: %.2f\n",
+                   employees[i].id, employees[i].name, employees[i].salary);
+            found = 1;
+        }
+    }
+    if (!found) {
+        printf("No employees found with the given name.\n");
+    }
+    }
+
+    void searchById(Employee *employees, int n, int id) {
+    int found = 0;
+    printf("\nEmployee with ID %d:\n", id);
+    for (int i = 0; i < n; i++) {
+        if (employees[i].id == id) {
+            printf("ID: %d, Name: %s, Salary: %.2f\n",
+                   employees[i].id, employees[i].name, employees[i].salary);
+            found = 1;
+            break;
+        }
+    }
+    if (!found) {
+        printf("No employee found with the given ID.\n");
+    }
+    }
+
+    void displayAllEmployees(Employee *employees, int n) {
+    printf("\nAll employees:\n");
+    for (int i = 0; i < n; i++) {
+        printf("ID: %d, Name: %s, Salary: %.2f\n",
+               employees[i].id, employees[i].name, employees[i].salary);
+    }
+    }
+
+    void displayEmployeesBySalary(Employee *employees, int n, float min_salary) {
+    int found = 0;
+    printf("\nEmployees with salary > %.2f:\n", min_salary);
+    for (int i = 0; i < n; i++) {
+        if (employees[i].salary > min_salary) {
+            printf("ID: %d, Name: %s, Salary: %.2f\n",
+                   employees[i].id, employees[i].name, employees[i].salary);
+            found = 1;
+        }
+    }
+    if (!found) {
+        printf("No employees found with salary > %.2f.\n", min_salary);
+    }
+    }
+
+    void displayEmployeeWithMaxSalary(Employee *employees, int n) {
+    if (n <= 0) {
+        printf("No employees available to find maximum salary.\n");
+        return;
+            }
+
+    int max_index = 0;
+    for (int i = 1; i < n; i++) {
+        if (employees[i].salary > employees[max_index].salary) {
+            max_index = i;
+        }
+    }
+
+    printf("\nEmployee with maximum salary:\n");
+    printf("ID: %d, Name: %s, Salary: %.2f\n",
+           employees[max_index].id, employees[max_index].name, employees[max_index].salary);
+    }
+
+
