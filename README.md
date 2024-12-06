@@ -1,24 +1,26 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#56. Accept book details of ‘n’ books viz, book title, author, publisher and cost. Assign an accession numbers to each book in increasing order. (Use dynamic memory allocation). Write a menu driven program for the following options. i. Books of a specific author ii. Books by a specific publisher iii. All books having cost >= _____ . iv. Information about a particular book (accept the title) v. All books. 
 
-// Structure to store book details
-typedef struct {
-    int accession_number;
-    char title[100];
-    char author[100];
-    char publisher[100];
-    float cost;
-} Book;
 
-// Function prototypes
-void displayBooksByAuthor(Book *books, int n, const char *author);
-void displayBooksByPublisher(Book *books, int n, const char *publisher);
-void displayBooksByCost(Book *books, int n, float min_cost);
-void displayBookByTitle(Book *books, int n, const char *title);
-void displayAllBooks(Book *books, int n);
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    // Structure to store book details
+    typedef struct {
+        int accession_number;
+        char title[100];
+        char author[100];
+        char publisher[100];
+        float cost;
+        } Book;
 
-int main() {
+    // Function prototypes
+    void displayBooksByAuthor(Book *books, int n, const char *author);
+    void displayBooksByPublisher(Book *books, int n, const char *publisher);
+    void displayBooksByCost(Book *books, int n, float min_cost);
+    void displayBookByTitle(Book *books, int n, const char *title);
+    void displayAllBooks(Book *books, int n);
+
+    int main() {
     int n, choice;
     char search_query[100];
     float min_cost;
@@ -108,9 +110,11 @@ int main() {
     // Free allocated memory
     free(books);
     return 0;
-}
-
-void displayBooksByAuthor(Book *books, int n, const char *author) {
+    }
+    
+    
+    
+    void displayBooksByAuthor(Book *books, int n, const char *author) {
     int found = 0;
     printf("\nBooks by author '%s':\n", author);
     for (int i = 0; i < n; i++) {
@@ -123,9 +127,9 @@ void displayBooksByAuthor(Book *books, int n, const char *author) {
     if (!found) {
         printf("No books found by this author.\n");
     }
-}
+    }
 
-void displayBooksByPublisher(Book *books, int n, const char *publisher) {
+    void displayBooksByPublisher(Book *books, int n, const char *publisher) {
     int found = 0;
     printf("\nBooks by publisher '%s':\n", publisher);
     for (int i = 0; i < n; i++) {
@@ -138,9 +142,9 @@ void displayBooksByPublisher(Book *books, int n, const char *publisher) {
     if (!found) {
         printf("No books found by this publisher.\n");
     }
-}
+    }
 
-void displayBooksByCost(Book *books, int n, float min_cost) {
+    void displayBooksByCost(Book *books, int n, float min_cost) {
     int found = 0;
     printf("\nBooks with cost >= %.2f:\n", min_cost);
     for (int i = 0; i < n; i++) {
@@ -153,9 +157,9 @@ void displayBooksByCost(Book *books, int n, float min_cost) {
     if (!found) {
         printf("No books found with cost >= %.2f.\n", min_cost);
     }
-}
+    }
 
-void displayBookByTitle(Book *books, int n, const char *title) {
+    void displayBookByTitle(Book *books, int n, const char *title) {
     int found = 0;
     printf("\nInformation about book titled '%s':\n", title);
     for (int i = 0; i < n; i++) {
@@ -169,12 +173,12 @@ void displayBookByTitle(Book *books, int n, const char *title) {
     if (!found) {
         printf("No book found with the given title.\n");
     }
-}
+    }
 
-void displayAllBooks(Book *books, int n) {
+    void displayAllBooks(Book *books, int n) {
     printf("\nAll books:\n");
     for (int i = 0; i < n; i++) {
         printf("Accession Number: %d, Title: %s, Author: %s, Publisher: %s, Cost: %.2f\n",
                books[i].accession_number, books[i].title, books[i].author, books[i].publisher, books[i].cost);
     }
-}
+    }
