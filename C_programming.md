@@ -1,4 +1,4 @@
-# 56. Accept book details of ‘n’ books viz, book title, author, publisher and cost. Assign an accession numbers to each book in increasing order. (Use dynamic memory allocation). Write a menu driven program for the following options. i. Books of a specific author ii. Books by a specific publisher iii. All books having cost >= _____ . iv. Information about a particular book (accept the title) v. All books. 
+//56. Accept book details of ‘n’ books viz, book title, author, publisher and cost. Assign an accession numbers to each book in increasing order. (Use dynamic memory allocation). Write a menu driven program for the following options. i. Books of a specific author ii. Books by a specific publisher iii. All books having cost >= _____ . iv. Information about a particular book (accept the title) v. All books. //
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -182,15 +182,14 @@
     }
     }
 
-# 55. Create a structure employee (id, name, salary). Accept details of n 
-# employees and write a menu driven program to perform the following 
- # operations. Write separate functions for the 
-# different options. 
-# i) Search by name 
-# ii) Search by id 
-# iii) Display all 
-# iv) Display all employees having salary > _____ 
-# v) Display employee having maximum salary. 
+// 55. Create a structure employee (id, name, salary). Accept details of n 
+ employees and write a menu driven program to perform the following 
+  operations. Write separate functions for the 
+different options.  i) Search by name 
+ii) Search by id 
+iii) Display all 
+iv) Display all employees having salary > _____ 
+v) Display employee having maximum salary. //
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -366,7 +365,7 @@
     }
 
 
-#54. Create a structure student (roll number, name, marks of 3 subjects, 
+//54. Create a structure student (roll number, name, marks of 3 subjects, 
 percentage). Accept 
 details of n students and write a menu driven program to perform the 
 following operations. Write separate functions for the different 
@@ -374,7 +373,7 @@ options.
 i) Search 
 ii) Display all student details 
 iii) Display all student having percentage > _____ 
-v) Display student having maximum percentage 
+v) Display student having maximum percentage .
 
 
         #include <stdio.h>
