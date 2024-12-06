@@ -532,8 +532,8 @@ v) Display student having maximum percentage .
     }
 
 
-# 53. Write a program to find the frequency of the character in the given 
-string. 
+//53. Write a program to find the frequency of the character in the given 
+string. //
 
         #include <stdio.h>
         #include <string.h>
@@ -894,3 +894,262 @@ should return –1 if the character is not found in the string.//
 
     return 0;
     }
+
+//48. Write a program to allocate memory dynamically for n integers 
+such that the memory is initialized to 0. Accept the data from the user 
+and find the range of the data elements.//
+
+    #include <stdio.h>
+    #include <stdlib.h>
+
+    // Function to find the range of data elements
+    void findRange(int *arr, int n, int *min, int *max) {
+    *min = *max = arr[0];
+    for (int i = 1; i < n; i++) {
+        if (arr[i] < *min) {
+            *min = arr[i];
+        }
+        if (arr[i] > *max) {
+            *max = arr[i];
+        }
+    }
+    }
+
+    int main() {
+    int n;
+    printf("Enter the number of integers: ");
+    scanf("%d", &n);
+
+    // Allocate memory dynamically and initialize to 0
+    int *arr = (int *)calloc(n, sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    printf("Enter %d integers: \n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int min, max;
+    findRange(arr, n, &min, &max);
+
+    printf("The range of the data elements is: %d to %d\n", min, max);
+
+    // Free the allocated memory
+    free(arr);
+
+    return 0;
+    }
+    
+//47. Write a program to display the elements of an array containing n
+integers in the reverse order using a pointer to the array.//
+
+    #include <stdio.h>
+
+    int main() {
+    int n, i;
+
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+
+    printf("Enter the elements of the array:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int *ptr = &arr[n - 1]; // Pointer to the last element
+
+    printf("Elements in reverse order:\n");
+    for (i = n - 1; i >= 0; i--) {
+        printf("%d ", *ptr);
+        ptr--; // Move the pointer to the previous element
+    }
+
+    printf("\n");
+
+    return 0;
+    }
+
+// 46. Write a function which takes hours, minutes and seconds as
+parameters and an integer s and increments the time by s seconds.
+Accept time and seconds in main and Display the new time in main
+using the above function.//
+
+    #include <stdio.h>
+    void increment_time(int *hours, int *minutes, int *seconds, int s) {
+    int total_seconds = (*hours * 3600) + (*minutes * 60) + *seconds + s;
+
+    *seconds = total_seconds % 60;
+    total_seconds /= 60;
+
+    *minutes = total_seconds % 60;
+    *hours = total_seconds / 60;
+    }
+
+    int main() {
+    int hours, minutes, seconds, s;
+
+    printf("Enter the time (hours, minutes, seconds): ");
+    scanf("%d %d %d", &hours, &minutes, &seconds);
+
+    printf("Enter the number of seconds to increment: ");
+    scanf("%d", &s);
+
+    increment_time(&hours, &minutes, &seconds, s);
+
+    printf("New time: %02d:%02d:%02d\n", hours, minutes, seconds);
+
+    return 0;
+    }
+
+//45. Write a program to add and multiply two matrices. Write separate 
+functions to accept, display, add and multiply the matrices. Perform 
+necessary checks before adding and multiplying the matrices.//
+
+    #include <stdio.h>
+
+    void accept_matrix(int rows, int cols, int matrix[rows][cols]) {
+    printf("Enter elements of the matrix:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    }
+
+    void display_matrix(int rows, int cols, int matrix[rows][cols]) {
+    printf("Matrix:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    }
+
+    void add_matrices(int rows, int cols, int matrix1[rows][cols], int matrix2[rows][cols], int result[rows][cols]) {
+    if (rows != rows || cols != cols) {
+        printf("Matrices cannot be added. Dimensions do not match.\n");
+        return;
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
+    }
+
+    void multiply_matrices(int rows1, int cols1, int matrix1[rows1][cols1], int rows2, int cols2, int matrix2[rows2][cols2], int result[rows1][cols2]) {
+    if (cols1 != rows2) {
+        printf("Matrices cannot be multiplied. Number of columns in the first matrix must equal the number of rows in the second matrix.\n");
+        return;
+    }
+
+    for (int i = 0; i < rows1; i++) {
+        for (int j = 0; j < cols2; j++) {
+            result[i][j] = 0;
+            for (int k = 0; k < cols1; k++) {
+                result[i][j] += matrix1[i][k] * matrix2[k][j];
+            }
+        }
+    }
+    }
+
+    int main() {
+    int rows1, cols1, rows2, cols2;
+
+    printf("Enter the dimensions of the first matrix (rows, columns): ");
+    scanf("%d %d", &rows1, &cols1);
+
+    int matrix1[rows1][cols1];
+    accept_matrix(rows1, cols1, matrix1);
+
+    printf("Enter the dimensions of the second matrix (rows, columns): ");
+    scanf("%d %d", &rows2, &cols2);
+
+    int matrix2[rows2][cols2];
+    accept_matrix(rows2, cols2, matrix2);
+
+    printf("\nMatrix 1:\n");
+    display_matrix(rows1, cols1, matrix1);
+
+    printf("\nMatrix 2:\n");
+    display_matrix(rows2, cols2, matrix2);
+
+    int sum_matrix[rows1][cols1];
+    add_matrices(rows1, cols1, matrix1, rows2, cols2, sum_matrix);
+
+    if (rows1 == rows2 && cols1 == cols2) {
+        printf("\nSum of matrices:\n");
+        display_matrix(rows1, cols1, sum_matrix);
+    }
+
+    int product_matrix[rows1][cols2];
+    multiply_matrices(rows1, cols1, matrix1, rows2, cols2, product_matrix);
+
+    if (cols1 == rows2) {
+        printf("\nProduct of matrices:\n");
+        display_matrix(rows1, cols2, product_matrix);
+    }
+
+    return 0;
+    }
+
+//44. Write a program to accept a matrix A of size m x n and store its 
+transpose in matrix B. Display matrix B. Write separate functions. //
+
+    #include <stdio.h>
+
+    void accept_matrix(int rows, int cols, int matrix[rows][cols]) {
+    printf("Enter elements of the matrix:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+    }
+
+    void display_matrix(int rows, int cols, int matrix[rows][cols]) {
+    printf("Matrix:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+    }
+
+    void transpose_matrix(int rows, int cols, int matrix[rows][cols], int transpose[cols][rows]) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            transpose[j][i] = matrix[i][j];
+        }
+    }
+    }
+
+    int main() {
+    int rows, cols;
+
+    printf("Enter the dimensions of the matrix (rows, columns): ");
+    scanf("%d %d", &rows, &cols);
+
+    int matrix[rows][cols];
+    accept_matrix(rows, cols, matrix);
+
+    printf("\nOriginal Matrix:\n");
+    display_matrix(rows, cols, matrix);
+
+    int transpose[cols][rows];
+    transpose_matrix(rows, cols, matrix, transpose);
+
+    printf("\nTranspose Matrix:\n");
+    display_matrix(cols, rows, transpose);
+
+    return 0;
+    }
+
