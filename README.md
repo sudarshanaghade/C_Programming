@@ -1,4 +1,3 @@
-#56. Accept book details of ‘n’ books viz, book title, author, publisher and cost. Assign an accession numbers to each book in increasing order. (Use dynamic memory allocation). Write a menu driven program for the following options. i. Books of a specific author ii. Books by a specific publisher iii. All books having cost >= _____ . iv. Information about a particular book (accept the title) v. All books. 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
