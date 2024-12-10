@@ -1153,3 +1153,356 @@ transpose in matrix B. Display matrix B. Write separate functions. //
     return 0;
     }
 
+//43. Write a program to find the union and intersection of the two sets 
+of integers (store it in two arrays). //
+
+    #include <stdio.h>
+
+    #define MAX 100
+
+    void findUnion(int set1[], int size1, int set2[], int size2, int unionSet[], int *unionSize) {
+    int i, j, k = 0, found;
+
+    // Copy all elements of set1 to unionSet
+    for (i = 0; i < size1; i++) {
+        unionSet[k++] = set1[i];
+    }
+
+    // Add elements from set2 to unionSet if they are not already present
+    for (i = 0; i < size2; i++) {
+        found = 0;
+        for (j = 0; j < size1; j++) {
+            if (set2[i] == set1[j]) {
+                found = 1;
+                break;
+            }
+        }
+        if (!found) {
+            unionSet[k++] = set2[i];
+        }
+    }
+
+    *unionSize = k;
+    }
+
+    void findIntersection(int set1[], int size1, int set2[], int size2, int intersectionSet[], int *intersectionSize) {
+    int i, j, k = 0;
+
+    // Find common elements
+    for (i = 0; i < size1; i++) {
+        for (j = 0; j < size2; j++) {
+            if (set1[i] == set2[j]) {
+                intersectionSet[k++] = set1[i];
+                break;
+            }
+        }
+    }
+
+    *intersectionSize = k;
+    }
+
+    int main() {
+    int set1[MAX], set2[MAX], unionSet[MAX], intersectionSet[MAX];
+    int size1, size2, unionSize, intersectionSize;
+    int i;
+
+    // Input first set
+    printf("Enter the size of the first set: ");
+    scanf("%d", &size1);
+    printf("Enter the elements of the first set:\n");
+    for (i = 0; i < size1; i++) {
+        scanf("%d", &set1[i]);
+    }
+
+    // Input second set
+    printf("Enter the size of the second set: ");
+    scanf("%d", &size2);
+    printf("Enter the elements of the second set:\n");
+    for (i = 0; i < size2; i++) {
+        scanf("%d", &set2[i]);
+    }
+
+    // Find union
+    findUnion(set1, size1, set2, size2, unionSet, &unionSize);
+
+    // Find intersection
+    findIntersection(set1, size1, set2, size2, intersectionSet, &intersectionSize);
+
+    // Print union
+    printf("Union of the sets: ");
+    for (i = 0; i < unionSize; i++) {
+        printf("%d ", unionSet[i]);
+    }
+    printf("\n");
+
+    // Print intersection
+    printf("Intersection of the sets: ");
+    for (i = 0; i < intersectionSize; i++) {
+        printf("%d ", intersectionSet[i]);
+    }
+    printf("\n");
+
+    return 0;
+    }
+
+
+//42. Write a program to accept a decimal number and convert it to 
+binary, octal and hexadecimal. Write separate functions.//
+
+    #include <stdio.h>
+
+    // Function to convert decimal to binary
+    void decimalToBinary(int decimal) {
+    int binary[32]; // Array to store binary digits
+    int index = 0;
+
+    if (decimal == 0) {
+        printf("Binary: 0\n");
+        return;
+    }
+
+    while (decimal > 0) {
+        binary[index++] = decimal % 2;
+        decimal /= 2;
+    }
+
+    printf("Binary: ");
+    for (int i = index - 1; i >= 0; i--) {
+        printf("%d", binary[i]);
+    }
+    printf("\n");
+    }
+
+    // Function to convert decimal to octal
+    void decimalToOctal(int decimal) {
+    int octal[32]; // Array to store octal digits
+    int index = 0;
+
+    if (decimal == 0) {
+        printf("Octal: 0\n");
+        return;
+    }
+
+    while (decimal > 0) {
+        octal[index++] = decimal % 8;
+        decimal /= 8;
+    }
+
+    printf("Octal: ");
+    for (int i = index - 1; i >= 0; i--) {
+        printf("%d", octal[i]);
+    }
+    printf("\n");
+    }
+
+    // Function to convert decimal to hexadecimal
+    void decimalToHexadecimal(int decimal) {
+    char hexadecimal[32]; // Array to store hexadecimal digits
+    int index = 0;
+
+    if (decimal == 0) {
+        printf("Hexadecimal: 0\n");
+        return;
+    }
+
+    while (decimal > 0) {
+        int remainder = decimal % 16;
+        if (remainder < 10) {
+            hexadecimal[index++] = 48 + remainder; // ASCII for 0-9
+        } else {
+            hexadecimal[index++] = 55 + remainder; // ASCII for A-F
+        }
+        decimal /= 16;
+    }
+
+    printf("Hexadecimal: ");
+    for (int i = index - 1; i >= 0; i--) {
+        printf("%c", hexadecimal[i]);
+    }
+    printf("\n");
+    }
+
+    int main() {
+    int decimal;
+
+    printf("Enter a decimal number: ");
+    scanf("%d", &decimal);
+
+    decimalToBinary(decimal);
+    decimalToOctal(decimal);
+    decimalToHexadecimal(decimal);
+
+    return 0;
+    }
+
+//40. Write a function, which accepts an integer array and an integer as 
+parameters and counts the occurrences of the number in the array.  
+
+    #include <stdio.h>
+
+    // Function to count occurrences of a number in an array
+    int countOccurrences(int arr[], int size, int num) {
+    int count = 0; // Initialize count variable
+
+    // Loop through the array
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == num) {
+            count++; // Increment count if the number is found
+        }
+    }
+
+    return count; // Return the count
+    }
+
+    int main() {
+    int arr[] = {1, 2, 3, 4, 2, 5, 2, 6};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int num = 2;
+
+    // Call the function and print the result
+    int occurrences = countOccurrences(arr, size, num);
+    printf("The number %d occurs %d times in the array.\n", num, occurrences);
+
+    return 0;
+    }
+
+// 39. Write a function for Linear Search, which accepts an array of n 
+elements and a key as parameters and returns the position of key in 
+the array and -1 if the key is not found. Accept n numbers from the 
+user, store them in an array. Accept the key to be searched and search 
+it using this function. Display appropriate messages.
+
+    #include <stdio.h>
+    // Function to perform linear search
+    int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            return i; // Return position if the key is found
+        }
+    }
+    return -1; // Return -1 if the key is not found
+    }
+
+    int main() {
+    int n, key, position;
+
+    // Accept the size of the array
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+
+    // Accept array elements
+    printf("Enter %d elements:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Accept the key to be searched
+    printf("Enter the key to be searched: ");
+    scanf("%d", &key);
+
+    // Search the key using linear search
+    position = linearSearch(arr, n, key);
+
+    // Display the result
+    if (position != -1) {
+        printf("Key found at position %d (index %d)\n", position + 1, position);
+    } else {
+        printf("Key not found in the array.\n");
+    }
+
+    return 0;
+    }
+
+// 38. Write a program to accept n numbers in the range of 1 to 25 and 
+count the frequency of occurrence of each number//
+
+    #include <stdio.h>
+    int main() {
+    int n, i, num;
+    int frequency[25] = {0}; // Array to store the frequency of numbers 1 to 25
+    
+    printf("Enter the number of elements (n): ");
+    scanf("%d", &n);
+    
+    printf("Enter %d numbers (in the range 1 to 25):\n", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &num);
+        if (num < 1 || num > 25) {
+            printf("Number out of range! Please enter a number between 1 and 25.\n");
+            i--; // Decrement index to re-enter a valid number
+        } else {
+            frequency[num - 1]++; // Increment frequency of the number
+        }
+    }
+    
+    printf("\nFrequency of numbers:\n");
+    for (i = 0; i < 25; i++) {
+        if (frequency[i] > 0) {
+            printf("Number %d: %d times\n", i + 1, frequency[i]);
+        }
+    }
+    
+    return 0;
+    }
+
+// 37. Write a recursive C function to print the digits of a number in 
+reverse order. Use this function in main to accept a number and print 
+the digits in reverse order separated by tab. Example 3456 6 5 4 3 
+(Hint: Recursiveprint(n) = print n if n is single digit number = print n 
+% 10 + tab + Recursiveprint( n/10).
+
+    #include <stdio.h>
+    // Recursive function to print the digits of a number in reverse order
+    void RecursivePrint(int n) {
+    if (n < 10) { // Base case: if n is a single digit, print it
+        printf("%d\t", n);
+    } else {
+        printf("%d\t", n % 10); // Print the last digit
+        RecursivePrint(n / 10); // Recursive call with the rest of the digits
+    }
+    }
+
+    int main() {
+    int number;
+    
+    printf("Enter a number: ");
+    scanf("%d", &number);
+
+    printf("Digits in reverse order:\n");
+    RecursivePrint(number);
+    
+    return 0;
+    }
+
+// 36. Write a recursive function to calculate the sum of digits of a 
+number till you get a single digit number. Example: 961 -> 16 -> 5. 
+(Note: Do not use a loop)  
+
+    #include <stdio.h>
+    // Function to calculate the sum of digits of a number
+    int sumOfDigits(int n) {
+    if (n < 10) {
+        // If the number is a single digit, return it
+        return n;
+    }
+
+    // Calculate the sum of the digits
+    int sum = 0;
+    while (n > 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+
+    // Recursively call the function with the sum
+    return sumOfDigits(sum);
+    }
+
+    int main() {
+    int number = 961; // Example number
+    int result = sumOfDigits(number);
+
+    printf("The single-digit sum of digits is: %d\n", result);
+    return 0;
+    }
